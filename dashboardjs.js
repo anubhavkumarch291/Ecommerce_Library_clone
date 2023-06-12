@@ -1,8 +1,16 @@
 let databack=JSON.parse(localStorage.getItem("book_list"));
-let buydata=JSON.parse(localStorage.getItem("buy_list"))||[];
+let buydata=JSON.parse(localStorage.getItem("buylist"))||[];
 let markdata=JSON.parse(localStorage.getItem("add_list"))||[];
-let count=0;
+document.querySelector("#filter").addEventListener("change",mycat);
+function mycat(event){
+    event.preventDefault();
+    let filtercat=databack.filter(function(el){
+        return el.entercat==selected;
+    })
+    alldata(filtercat);
+}
 function alldata(databack){
+    let count=0;
     databack.forEach(function(el,i){
         document.querySelector("tbody").innerHTML="";
         count++;
@@ -28,7 +36,7 @@ function alldata(databack){
             databack.splice(i,1);
             localStorage.setItem("book_list",JSON.stringify(databack));
             buydata.push(databack);
-            localStorage.setItem("buy_list",JSON.stringify(buydata));
+            localStorage.setItem("buylist",JSON.stringify(buydata));
         })
         let td7=document.createElement("td");
         td7.innerText="Add";
